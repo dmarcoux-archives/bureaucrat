@@ -1,0 +1,10 @@
+version: '2'
+services:
+  development:
+    build: .
+    container_name: bureaucrat-development
+
+  test:
+    build: .
+    command: go test ./..
+    container_name: bureaucrat-test
