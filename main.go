@@ -19,6 +19,10 @@ func Search(employee *Employee, employeeId uint, channel chan uint) bool {
 	}
 
 	if employee.Id == employeeId {
+		// An employee will always be considered his own manager, in addition to any manager(s) he/she has
+		// This is done for the edge case of the CEO, which wouldn't have a manager otherwise.
+		// We can argue that the CEO is his/her own boss or not... This would be done in the code review...
+		channel <- employee.Id
 		return true
 	}
 
@@ -33,16 +37,57 @@ func Search(employee *Employee, employeeId uint, channel chan uint) bool {
 }
 
 // Launches a search in an employee tree for a specific employee with his/her id
-// Returns a read-only channel of id(s) from his/her manager(s)
-func Searcher(employees *Employee, employeeId uint) <-chan uint {
-	managers := make(chan uint)
+// Returns a slice of id(s) from his/her manager(s)
+func Searcher(employees *Employee, employeeId uint) []uint {
+	manager_ids := make(chan uint)
 
 	go func() {
-		Search(employees, employeeId, managers)
-		close(managers)
+		Search(employees, employeeId, manager_ids)
+		close(manager_ids)
 	}()
 
+	var managers []uint
+	for manager_id := range manager_ids {
+		managers = append(managers, manager_id)
+	}
+
+	// The first manager of the employee will be himself/herself (edge case for the CEO).
+	// So if he/she has at least another manager, remove himself/herself from his/her managers
+	if len(managers) > 1 {
+		managers = managers[1:]
+	}
+
 	return managers
+}
+
+// Finds the closest common manager (farthest from the top manager) between two employees
+func FindCommonManager(employees *Employee, employee1Id, employee2Id uint) uint {
+	if employees == nil {
+		return 0
+	}
+
+	if employee1Id == employees.Id || employee2Id == employees.Id {
+		return employees.Id
+	}
+
+	managersEmployee1 := Searcher(employees, employee1Id)
+	managersEmployee2 := Searcher(employees, employee2Id)
+
+	var commonManager uint
+	for _, manager1 := range managersEmployee1 {
+		for _, manager2 := range managersEmployee2 {
+			if manager1 == manager2 {
+				commonManager = manager1
+				break
+			}
+		}
+
+		if commonManager != 0 {
+			break
+		}
+	}
+
+	return commonManager
 }
 
 func main() {
