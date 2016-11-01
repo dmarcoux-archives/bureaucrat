@@ -22,8 +22,17 @@ Requirements for this corporate directory:
 
 # Usage
 
-Using Docker and Docker-Compose simplifies the setup of the project. It's highly
-suggested to use this approach.
+There are 2 approaches to use this application:
+
+*Docker (RECOMMENDED)*
+
+Install Docker and Docker-Compose. This application has been tested on Linux
+with Docker version `1.12.3` and Docker-Compose version `1.8.1`.
+
+*Native*
+
+Install Go with your package manager or directly at https://golang.org/dl/. This
+application has been tested on Linux with Go version `1.7.3`.
 
 ## Application
 
@@ -33,7 +42,7 @@ Run the application with `docker-compose up development`
 
 *Without Docker:*
 
-TODO
+Run the application with `go run main.go`
 
 ## Tests
 
@@ -43,4 +52,4 @@ Run the tests with `docker-compose up test`
 
 *Without Docker:*
 
-TODO
+Run the tests with `go test -v ./...`

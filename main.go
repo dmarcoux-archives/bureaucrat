@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // An employee can have subordinates, which in turn can have subordinates and so on...
 // In terms of data structure, an employee is a node in a general tree
 // An employee (a node) will be either:
@@ -51,7 +53,7 @@ func Searcher(employees *Employee, employeeId uint) []uint {
 		managers = append(managers, manager_id)
 	}
 
-	// The first manager of the employee will be himself/herself (edge case for the CEO).
+	// The first manager of the employee will always be himself/herself (edge case for the CEO).
 	// So if he/she has at least another manager, remove himself/herself from his/her managers
 	if len(managers) > 1 {
 		managers = managers[1:]
@@ -90,6 +92,75 @@ func FindCommonManager(employees *Employee, employee1Id, employee2Id uint) uint 
 	return commonManager
 }
 
-func main() {
+// This is the structure of the employees directory, numbers being the ids of employees
+//      1
+//    / | \
+//   2  7  8
+//  /|\   / \
+// 3 4 5 9  10
+//      \
+//       6
+var EmployeesDirectory *Employee = &Employee{
+	Id:   1,
+	Name: "Claire",
+	Subordinates: []*Employee{
+		&Employee{
+			Id:   2,
+			Name: "Roger",
+			Subordinates: []*Employee{
+				&Employee{
+					Id:   3,
+					Name: "George",
+				},
+				&Employee{
+					Id:   4,
+					Name: "Suzie",
+				},
+				&Employee{
+					Id:   5,
+					Name: "Lola",
+					Subordinates: []*Employee{
+						&Employee{
+							Id:   6,
+							Name: "Foo",
+						},
+					},
+				},
+			},
+		},
+		&Employee{
+			Id:   7,
+			Name: "Bar",
+		},
+		&Employee{
+			Id:   8,
+			Name: "Paul",
+			Subordinates: []*Employee{
+				&Employee{
+					Id:   9,
+					Name: "Jen",
+				},
+				&Employee{
+					Id:   10,
+					Name: "Ringo",
+				},
+			},
+		},
+	},
+}
 
+func main() {
+	fmt.Println("Welcome! This is Bureaucr.at's employees directory.")
+	fmt.Println("--------------------")
+	fmt.Println("To find the common closest manager of 2 employees, please provide their id separated by a space (Ids must be greater than 0)")
+	var employee1 uint
+	var employee2 uint
+	_, err := fmt.Scanf("%d %d", &employee1, &employee2)
+	if err == nil && employee1 > 0 && employee2 > 0 {
+		commonManager := FindCommonManager(EmployeesDirectory, employee1, employee2)
+		fmt.Printf("For the employees #%d and #%d, their common closest manager is the employee #%d\n", employee1, employee2, commonManager)
+	} else {
+		fmt.Println("Wrong input provided")
+	}
+	fmt.Println("Exiting now...")
 }
