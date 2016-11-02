@@ -38,18 +38,21 @@ application has been tested on Linux with Go version `1.7.3`.
 
 *With Docker:*
 
-Run the application with `docker-compose up development`
+1. Start a Docker container with `docker-compose run development`.
+2. Inside the Docker container, run the application with `go run main.go` and
+   follow the instructions provided by the application.
 
 *Without Docker:*
 
-Run the application with `go run main.go`
+1. Run the application with `go run main.go` and follow the instructions provided
+by the application.
 
 ## Tests
 
 *With Docker:*
 
-Run the tests with `docker-compose up test`
+1. Run the tests inside a Docker container with `docker-compose up test`
 
 *Without Docker:*
 
-Run the tests with `go test -v ./...`
+1. Run the tests with `go test -v ./...`

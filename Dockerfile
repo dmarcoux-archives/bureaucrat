@@ -7,4 +7,4 @@ ADD / .
 
 RUN go install
 
-ENTRYPOINT $GOPATH/bin/bureaucrat
+ENTRYPOINT /bin/ash
