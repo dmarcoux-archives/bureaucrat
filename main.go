@@ -41,16 +41,16 @@ func Search(employee *Employee, employeeId uint, channel chan uint) bool {
 // Launches a search in an employee tree for a specific employee with his/her id
 // Returns a slice of id(s) from his/her manager(s)
 func Searcher(employees *Employee, employeeId uint) []uint {
-	manager_ids := make(chan uint)
+	managerIds := make(chan uint)
 
 	go func() {
-		Search(employees, employeeId, manager_ids)
-		close(manager_ids)
+		Search(employees, employeeId, managerIds)
+		close(managerIds)
 	}()
 
 	var managers []uint
-	for manager_id := range manager_ids {
-		managers = append(managers, manager_id)
+	for managerId := range managerIds {
+		managers = append(managers, managerId)
 	}
 
 	// The first manager of the employee will always be himself/herself (edge case for the CEO).

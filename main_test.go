@@ -77,28 +77,28 @@ func TestSearcherCEO(t *testing.T) {
 
 func TestSearcherAnyEmployee(t *testing.T) {
 	// First level...
-	expected_managers := []uint{1}
+	expectedManagers := []uint{1}
 	managers := Searcher(&Employees, 8)
 	for i, manager := range managers {
-		if manager != expected_managers[i] {
+		if manager != expectedManagers[i] {
 			t.Error("Searcher should return the managers of any employee, including himself/herself")
 		}
 	}
 
 	// Second level employee...
-	expected_managers = []uint{8, 1}
+	expectedManagers = []uint{8, 1}
 	managers = Searcher(&Employees, 10)
 	for i, manager := range managers {
-		if manager != expected_managers[i] {
+		if manager != expectedManagers[i] {
 			t.Error("Searcher should return the managers of any employee, including himself/herself")
 		}
 	}
 
 	// Third level employee...
-	expected_managers = []uint{5, 2, 1}
+	expectedManagers = []uint{5, 2, 1}
 	managers = Searcher(&Employees, 6)
 	for i, manager := range managers {
-		if manager != expected_managers[i] {
+		if manager != expectedManagers[i] {
 			t.Error("Searcher should return the managers of any employee, including himself/herself")
 		}
 	}
@@ -117,37 +117,37 @@ func TestFindCommonManagerOneNonexistentEmployee(t *testing.T) {
 }
 
 func TestFindCommonManagerOneEmployeeIsCEO(t *testing.T) {
-	var expected_manager uint = 1
+	var expectedManager uint = 1
 	manager := FindCommonManager(&Employees, 1, 10)
-	if manager != expected_manager {
+	if manager != expectedManager {
 		t.Error("FindCommonManager should return the CEO as the closest common manager for 2 employees, when one of them is the CEO")
 	}
 }
 
 func TestFindCommonManagerSameEmployee(t *testing.T) {
-	var expected_manager uint = 8
+	var expectedManager uint = 8
 	manager := FindCommonManager(&Employees, 9, 9)
-	if manager != expected_manager {
+	if manager != expectedManager {
 		t.Error("FindCommandManager should return the closest common manager for twice the same employee")
 	}
 }
 
 func TestFindCommonManagerDifferentEmployees(t *testing.T) {
-	var expected_manager uint = 8
+	var expectedManager uint = 8
 	manager := FindCommonManager(&Employees, 9, 10)
-	if manager != expected_manager {
+	if manager != expectedManager {
 		t.Error("FindCommandManager should return the closest common manager for 2 different employees")
 	}
 
-	expected_manager = 2
+	expectedManager = 2
 	manager = FindCommonManager(&Employees, 3, 6)
-	if manager != expected_manager {
+	if manager != expectedManager {
 		t.Error("FindCommandManager should return the closest common manager for 2 different employees")
 	}
 
-	expected_manager = 1
+	expectedManager = 1
 	manager = FindCommonManager(&Employees, 6, 9)
-	if manager != expected_manager {
+	if manager != expectedManager {
 		t.Error("FindCommandManager should return the closest common manager for 2 different employees")
 	}
 
