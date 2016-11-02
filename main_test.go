@@ -6,23 +6,23 @@ var Employees = Employee{
 	Id:   1,
 	Name: "Claire",
 	Subordinates: []*Employee{
-		&Employee{
+		{
 			Id:   2,
 			Name: "Roger",
 			Subordinates: []*Employee{
-				&Employee{
+				{
 					Id:   3,
 					Name: "George",
 				},
-				&Employee{
+				{
 					Id:   4,
 					Name: "Suzie",
 				},
-				&Employee{
+				{
 					Id:   5,
 					Name: "Lola",
 					Subordinates: []*Employee{
-						&Employee{
+						{
 							Id:   6,
 							Name: "Foo",
 						},
@@ -30,19 +30,19 @@ var Employees = Employee{
 				},
 			},
 		},
-		&Employee{
+		{
 			Id:   7,
 			Name: "Bar",
 		},
-		&Employee{
+		{
 			Id:   8,
 			Name: "Paul",
 			Subordinates: []*Employee{
-				&Employee{
+				{
 					Id:   9,
 					Name: "Jen",
 				},
-				&Employee{
+				{
 					Id:   10,
 					Name: "Ringo",
 				},
