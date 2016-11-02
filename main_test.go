@@ -81,7 +81,7 @@ func TestSearcherAnyEmployee(t *testing.T) {
 	managers := Searcher(&Employees, 8)
 	for i, manager := range managers {
 		if manager != expected_managers[i] {
-			t.Error("Searcher should return the managers of any employee, incuding himself/herself")
+			t.Error("Searcher should return the managers of any employee, including himself/herself")
 		}
 	}
 
@@ -90,7 +90,7 @@ func TestSearcherAnyEmployee(t *testing.T) {
 	managers = Searcher(&Employees, 10)
 	for i, manager := range managers {
 		if manager != expected_managers[i] {
-			t.Error("Searcher should return the managers of any employee, incuding himself/herself")
+			t.Error("Searcher should return the managers of any employee, including himself/herself")
 		}
 	}
 
@@ -99,7 +99,7 @@ func TestSearcherAnyEmployee(t *testing.T) {
 	managers = Searcher(&Employees, 6)
 	for i, manager := range managers {
 		if manager != expected_managers[i] {
-			t.Error("Searcher should return the managers of any employee, incuding himself/herself")
+			t.Error("Searcher should return the managers of any employee, including himself/herself")
 		}
 	}
 }
